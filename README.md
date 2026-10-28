@@ -21,3 +21,21 @@ Aplicación web que consulta la [Rick and Morty API](https://rickandmortyapi.com
 3. Pulsar ☆ en una tarjeta para guardarla; "⭐ Favoritos" muestra solo las guardadas.
 4. El botón 🌙/☀️ cambia el tema.
 # proyecto-web-ia
+
+## Uso de IA (Claude)
+**Tres prompts importantes**
+1. "Crea una página con HTML, CSS y JS que consulte la API de Rick and Morty con fetch, muestre 10+ personajes con imagen y descripción, buscador, filtros, favoritos en localStorage y mensajes de error."
+2. "Haz que al marcar un favorito la lista se vuelva a pintar sin volver a pedir datos a la API."
+3. "Agrega modo oscuro/claro usando variables CSS y explícame cómo funciona."
+
+**Respuesta que requirió correcciones:** la primera versión redefinía la función `mostrar` para recordar la última lista mostrada. Funcionaba pero era confuso; se corrigió guardando esa lista en una variable (`ultimos`) dentro de `mostrar`.
+
+**Error encontrado y cómo se resolvió:** al buscar un nombre inexistente la API responde **404**, y `fetch` no lanza excepción en ese caso, por lo que se veía una lista vacía sin explicación. Se revisa `res.status === 404` para mostrar "No se encontraron resultados", y el `catch` queda para fallos reales de red.
+
+**Modificación que podemos explicar:** el modo oscuro. `body.oscuro` redefine las variables CSS (`--fondo`, `--tarjeta`, `--texto`); `aplicarTema()` agrega/quita esa clase y guarda el valor en `localStorage`.
+
+**Reflexión:** la IA acelera el código base, pero hay que leerlo: los casos límite (404, favoritos al repintar) solo aparecieron al probar. Entender `fetch`, el DOM y `localStorage` fue necesario para corregirla y explicarla.
+
+## Dificultades
+- Manejar la respuesta 404 como "sin resultados" y no como error.
+- Mantener sincronizados el contador y la vista de favoritos.
