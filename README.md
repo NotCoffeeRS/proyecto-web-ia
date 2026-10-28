@@ -39,3 +39,6 @@ Aplicación web que consulta la [Rick and Morty API](https://rickandmortyapi.com
 ## Dificultades
 - Manejar la respuesta 404 como "sin resultados" y no como error.
 - Mantener sincronizados el contador y la vista de favoritos.
+
+## Cómo publicar en GitHub Pages
+Settings → Pages → Source: *Deploy from a branch* → rama `main`, carpeta `/ (root)` → Save.
