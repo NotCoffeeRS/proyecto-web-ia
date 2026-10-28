@@ -4,7 +4,7 @@ Aplicación web que consulta la [Rick and Morty API](https://rickandmortyapi.com
 
 **Integrantes:** Cuevas Valdez Vanessa Aneley · Ramos Santos Marcos Martin (4°A, Aplicaciones Web, UTM)
 
-**Aplicación publicada:** (pendiente de activar GitHub Pages)
+**Aplicación publicada:** https://notcoffeers.github.io/proyecto-web-ia/
 
 ## Descripción
 - Muestra 20 personajes con imagen, especie, género, estado, origen y ubicación.
@@ -20,7 +20,6 @@ Aplicación web que consulta la [Rick and Morty API](https://rickandmortyapi.com
 2. Escribir en el buscador o elegir estado/género.
 3. Pulsar ☆ en una tarjeta para guardarla; "⭐ Favoritos" muestra solo las guardadas.
 4. El botón 🌙/☀️ cambia el tema.
-# proyecto-web-ia
 
 ## Uso de IA (Claude)
 **Tres prompts importantes**
