@@ -16,3 +16,6 @@ button { cursor:pointer; }
 .tarjeta h2 { margin:0 0 .3rem; font-size:1.1rem; }
 .tarjeta p { margin:.15rem 0; font-size:.9rem; }
 .fav { position:absolute; top:.5rem; right:.5rem; font-size:1.2rem; padding:.2rem .5rem; }
+#paginacion { display:flex; justify-content:center; align-items:center; gap:1rem; padding:0 1rem 1.5rem; }
+#paginacion[hidden] { display:none; }
+#paginacion button:disabled { opacity:.4; cursor:default; }

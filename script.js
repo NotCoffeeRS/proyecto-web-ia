@@ -3,12 +3,15 @@ const $ = id => document.getElementById(id);
 const lista = $("lista"), mensaje = $("mensaje");
 let favoritos = JSON.parse(localStorage.getItem("favoritos") || "[]");
 let viendoFavoritos = false;
+let pagina = 1, paginas = 1;
 let ultimos = []; // lo último mostrado, para repintar al marcar favorito
 
 // Pide personajes a la API con los filtros actuales; 404 = sin resultados
-async function buscar() {
+async function buscar(p = 1) {
   viendoFavoritos = false;
-  const params = new URLSearchParams({ name: $("buscar").value.trim(), status: $("estado").value, gender: $("genero").value });
+  pagina = p;
+  $("paginacion").hidden = true;
+  const params = new URLSearchParams({ name: $("buscar").value.trim(), status: $("estado").value, gender: $("genero").value, page: pagina });
   mensaje.textContent = "Cargando...";
   lista.innerHTML = "";
   try {
@@ -17,6 +20,11 @@ async function buscar() {
     if (!res.ok) throw new Error(res.status);
     const datos = await res.json();
     mensaje.textContent = `${datos.info.count} personajes encontrados (mostrando ${datos.results.length})`;
+    paginas = datos.info.pages;
+    $("infoPagina").textContent = `Página ${pagina} de ${paginas}`;
+    $("anterior").disabled = pagina <= 1;
+    $("siguiente").disabled = pagina >= paginas;
+    $("paginacion").hidden = false;
     mostrar(datos.results);
   } catch (e) {
     mensaje.textContent = "Error al consultar la API. Revisa tu conexión e intenta de nuevo.";
@@ -52,6 +60,7 @@ function alternarFavorito(p) {
 
 function verFavoritos() {
   viendoFavoritos = true;
+  $("paginacion").hidden = true;
   mensaje.textContent = favoritos.length ? `Tus favoritos (${favoritos.length})` : "Aún no tienes favoritos.";
   mostrar(favoritos);
 }
@@ -64,9 +73,11 @@ function aplicarTema(oscuro) {
 }
 
 $("controles").addEventListener("submit", e => e.preventDefault());
-$("buscar").addEventListener("input", () => { clearTimeout(window.t); window.t = setTimeout(buscar, 400); });
-$("estado").onchange = $("genero").onchange = buscar;
-$("verFavoritos").onclick = () => viendoFavoritos ? buscar() : verFavoritos();
+$("buscar").addEventListener("input", () => { clearTimeout(window.t); window.t = setTimeout(() => buscar(), 400); });
+$("estado").onchange = $("genero").onchange = () => buscar();
+$("anterior").onclick = () => buscar(pagina - 1);
+$("siguiente").onclick = () => buscar(pagina + 1);
+$("verFavoritos").onclick = () => viendoFavoritos ? buscar(pagina) : verFavoritos();
 $("tema").onclick = () => aplicarTema(!document.body.classList.contains("oscuro"));
 
 $("numFav").textContent = favoritos.length;
