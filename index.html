@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Explorador Rick and Morty</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Explorador Rick and Morty</h1>
+    <button id="tema" type="button" aria-label="Cambiar tema">🌙</button>
+  </header>
+
+  <form id="controles">
+    <input id="buscar" type="search" placeholder="Buscar personaje..." aria-label="Buscar">
+    <select id="estado" aria-label="Estado">
+      <option value="">Todos los estados</option>
+      <option value="alive">Vivo</option>
+      <option value="dead">Muerto</option>
+      <option value="unknown">Desconocido</option>
+    </select>
+    <select id="genero" aria-label="Género">
+      <option value="">Todos los géneros</option>
+      <option value="male">Masculino</option>
+      <option value="female">Femenino</option>
+      <option value="genderless">Sin género</option>
+      <option value="unknown">Desconocido</option>
+    </select>
+    <button id="verFavoritos" type="button">⭐ Favoritos (<span id="numFav">0</span>)</button>
+  </form>
+
+  <p id="mensaje" role="status"></p>
+  <main id="lista"></main>
+
+  <script src="script.js"></script>
+</body>
+</html>
